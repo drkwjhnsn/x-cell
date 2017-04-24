@@ -1,0 +1,33 @@
+const tableModel = require('./table-model');
+const {getRange, getLetterRange} = require('./array-util');
+const {createTH, createTR, createTD, removeChildren} = require('./dom-util');
+
+
+class TableView {
+  constructor(model) {
+    this.model = model
+  }
+
+  init() {
+    this.initDomReferences();
+    this.renderTable();
+  }
+
+  initDomReferences() {
+    this.headerRowEl = document.querySelector('THEAD TR');
+  }
+
+  renderTable() {
+    this.renderTableHeader();
+    }
+  }
+
+  renderTableHeader() {
+    removeChildren(this.headerRowEl);
+    getLetterRange('A', this.model.numCols)
+      .map(colLabel => createTH(colLabel))
+      .forEach(th => this.headerRowEl.appendChild(th));
+  }
+}
+
+module.exports = TableView;
