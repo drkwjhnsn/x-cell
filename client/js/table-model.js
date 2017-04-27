@@ -9,7 +9,7 @@ class TableModel {
     return `${location.col}:${location.row}`;
   }
 
-  _getValue(location) {
+  getValue(location) {
     return this.data[this._getCellId(location)];
   }
 
