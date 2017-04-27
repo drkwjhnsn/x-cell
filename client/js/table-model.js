@@ -3,6 +3,7 @@ class TableModel {
     this.numCols = numCols;
     this.numRows = numRows;
     this.data = {};
+    this.sums = [];
   }
 
   _getCellId(location) {
@@ -15,6 +16,24 @@ class TableModel {
 
   _setValue(location, value) {
     this.data[this._getCellId(location)] = value;
+  }
+
+  getColSum(column) {
+    let sum = 0;
+    for (let location in this.data) {
+      if (location.indexOf(`${column}:`) !== -1) {
+        sum += parseInt(this.data[location], 10);
+      }
+    }
+    return sum;
+  }
+
+  getSum(column) {
+    return this.sums[column];
+  }
+
+  setSum(column, sum) {
+    this.sums[column] = sum;
   }
 }
 

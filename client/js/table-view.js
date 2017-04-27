@@ -73,6 +73,8 @@ class TableView {
     this.sheetBodyEl.appendChild(fragment);
   }
 
+
+
   attachEventHandlers() {
     this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
