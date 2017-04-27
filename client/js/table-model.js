@@ -18,7 +18,7 @@ class TableModel {
     this.data[this._getCellId(location)] = value;
   }
 
-  getColSum(column) {
+  findSum(column) {
     let sum = 0;
     for (let location in this.data) {
       if (location.indexOf(`${column}:`) !== -1) {

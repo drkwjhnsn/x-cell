@@ -27,7 +27,7 @@ describe('table-model', () => {
     // inspect initial state
       expect(model.getSum(column)).toBeUndefined();
     // execute code under test
-      const sum = model.getColSum(column);
+      const sum = model.findSum(column);
       model.setSum(column, sum);
     // inspect the resulting state
       expect(sum).toBe(9);
