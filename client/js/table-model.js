@@ -21,8 +21,11 @@ class TableModel {
   findSum(column) {
     let sum = 0;
     for (let location in this.data) {
-      if (location.indexOf(`${column}:`) !== -1) {
-        sum += parseInt(this.data[location], 10);
+      let value = parseInt(this.data[location], 10);
+      if (location.indexOf(`${column}:`) !== -1 &&
+          typeof value === 'number' &&
+          !isNaN(value)) {
+        sum += value;
       }
     }
     return sum;
