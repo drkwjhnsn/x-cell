@@ -12,6 +12,49 @@ describe('table-view', () => {
 
   });
 
+  describe('buttons', () => {
+    describe('new-row', () => {
+      it('adds new row when clicked', () => {
+        // set up initial state
+        const model = new TableModel(3, 5);
+        const view = new TableView(model);
+        view.init();
+        // inspect inital state
+        let trs = document.querySelectorAll('TBODY TR');
+        numberOfRows = trs.length;
+        expect(numberOfRows).toBe(5);
+        // simulate user action
+        view.addRowButtonEl.click();
+        // inspect resulting state
+        trs = document.querySelectorAll('TBODY TR');
+        numberOfRows = trs.length;
+        expect(numberOfRows).toBe(6);
+      });
+    });
+    describe('new-column', () => {
+      it('adds new column with header when clicked', () => {
+        // set up inital state
+        const model = new TableModel(3, 5);
+        const view = new TableView(model);
+        view.init();
+        // inspect initial state
+        let tr = document.querySelector('TBODY TR');
+        let numberOfColumns = tr.cells.length;
+        let headerRowLength = view.headerRowEl.cells.length;
+        expect(numberOfColumns).toBe(3);
+        expect(headerRowLength).toBe(3);
+        // simulate user action
+        view.addColumnButtonEl.click();
+        // inspect resulting state
+        tr = document.querySelector('TBODY TR');
+        numberOfColumns = tr.cells.length;
+        headerRowLength = view.headerRowEl.cells.length;
+        expect(numberOfColumns).toBe(4);
+        expect(headerRowLength).toBe(4);
+      });
+    });
+  });
+
   describe('formula-bar', () => {
     it('makes changes TO the value of the current cell', () => {
       // set up initial state

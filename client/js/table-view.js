@@ -19,6 +19,8 @@ class TableView {
     this.headerRowEl = document.querySelector('THEAD TR');
     this.sheetBodyEl = document.querySelector('TBODY');
     this.formulaBarEl = document.querySelector('#formula-bar');
+    this.addRowButtonEl = document.querySelector('#add-row');
+    this.addColumnButtonEl = document.querySelector('#add-column');
   }
 
   initCurrentCell() {
@@ -76,6 +78,19 @@ class TableView {
   attachEventHandlers() {
     this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
     this.formulaBarEl.addEventListener('keyup', this.handleFormulaBarChange.bind(this));
+    this.addRowButtonEl.addEventListener('click', this.handleNewRowClick.bind(this));
+    this.addColumnButtonEl.addEventListener('click', this.handleNewColumnClick.bind(this));
+  }
+
+  handleNewRowClick(evt) {
+    this.model.numRows++;
+    this.renderTableBody();
+
+  }
+
+  handleNewColumnClick(evt) {
+    this.model.numCols++;
+    this.renderTable();
   }
 
   handleFormulaBarChange(evt) {
