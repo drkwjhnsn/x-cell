@@ -16,22 +16,48 @@ describe('table-model', () => {
     expect(model.getValue(location)).toBe('foo');
   });
 
-  it('can add columns, store sums and return sums', () => {
-    // set up initial state
+  it('can store and retrieve values to TableModel.sums', () => {
+    const model = new TableModel();
+    const sum = 42;
+    const column = 0;
+
+    model.setSum(column, sum);
+    expect(model.getSum(column)).toBe(42);
+  });
+
+  describe('find-sum', () => {
+    it('adds numeric values', () => {
       const model = new TableModel();
       const column = 0;
-      const loc1 = { row: 3, col: column};
-      const loc2 = { row: 5, col: column};
-      model._setValue(loc1, 2);
-      model._setValue(loc2, 7);
-    // inspect initial state
-      expect(model.getSum(column)).toBeUndefined();
-    // execute code under test
+      model._setValue({row: 0, col: column}, 5);
+      model._setValue({row: 1, col: column}, 9);
+
       const sum = model.findSum(column);
-      model.setSum(column, sum);
-    // inspect the resulting state
-      expect(sum).toBe(9);
-      expect(model.sums[column]).toBe(9);
+      expect(sum).toBe(14);
+    });
+
+    it('only adds values within the passed column', () => {
+      const model = new TableModel();
+      const column = 0;
+      model._setValue({row: 0, col: column}, 5);
+      model._setValue({row: 1, col: column}, 9);
+      model._setValue({row: 2, col: 1}, 3);
+
+      const sum = model.findSum(column);
+      expect(sum).toBe(14);
+    });
+
+    it('only adds numeric values', () => {
+      const model = new TableModel();
+      const column = 0;
+      model._setValue({row: 0, col: column}, 5);
+      model._setValue({row: 1, col: column}, 'cat');
+      model._setValue({row: 2, col: column}, 3);
+      model._setValue({row: 3, col: column}, undefined);
+
+      const sum = model.findSum(column);
+      expect(sum).toBe(8);
+    });
   });
 
 });

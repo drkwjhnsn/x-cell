@@ -19,16 +19,15 @@ class TableModel {
   }
 
   findSum(column) {
-    let sum = 0;
-    for (let location in this.data) {
-      let value = parseInt(this.data[location], 10);
-      if (location.indexOf(`${column}:`) !== -1 &&
-          typeof value === 'number' &&
-          !isNaN(value)) {
-        sum += value;
-      }
-    }
-    return sum;
+    let keys = Object.keys(this.data);
+
+    let validKeys = keys.filter((loc) => loc.indexOf(`${column}:`) !== -1, this);
+
+    let values = validKeys.map((loc) => parseInt(this.data[loc]), this);
+
+    let numValues = values.filter((val) => !isNaN(val));
+
+    return numValues.reduce((acc, val) => acc + val, 0);
   }
 
   getSum(column) {
