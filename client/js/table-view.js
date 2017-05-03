@@ -76,7 +76,7 @@ class TableView {
   }
 
   renderTableFooter() {
-    const fragment = document.createDocumentFragment();
+    removeChildren(this.footerRowEl);
     for (let col = 0; col < this.model.numCols; col++) {
       if (col === this.currentCellLocation.col) {
         const sum = this.model.findSum(col);
@@ -85,10 +85,8 @@ class TableView {
       }
       const value = this.model.getSum(col);
       const td = createTD(value);
-      fragment.appendChild(td);
+      this.footerRowEl.appendChild(td);
     }
-    removeChildren(this.footerRowEl);
-    this.footerRowEl.appendChild(fragment);
   }
 
   attachEventHandlers() {
