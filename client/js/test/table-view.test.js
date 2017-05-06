@@ -10,6 +10,26 @@ describe('table-view', () => {
     const html = fs.readFileSync(fixturePath, 'utf8');
     document.documentElement.innerHTML = html;
 
+  describe('footer', () => {
+    it('displays column sum in table footer', () => {
+      // set up initial state
+      const model = new TableModel(3,3);
+      const view = new TableView(model);
+      view.init();
+      // inspect initial state
+      let tr = document.querySelector('TFOOT TR');
+      let td = tr.cells[0];
+      expect(td.textContent).toBe('');
+      // simulate user action
+      model._setValue({col: 0, row: 0}, '3');
+      model._setValue({col: 0, row: 1}, '2');
+      view.handleFormulaBarChange();
+      // inspect resulting state
+      tr = document.querySelector('TFOOT TR');
+      expect(td.cells[0].textContent).toBe('5');
+    });
+  });
+
   });
 
   describe('formula-bar', () => {
